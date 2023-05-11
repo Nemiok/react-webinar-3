@@ -1,3 +1,9 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -37,6 +43,8 @@ body {
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
+  width: 100%;
   transition: background-color 1s;
 }
 
@@ -50,12 +58,17 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
+  justify-self: flex-end;
   padding: 20px 20px 20px 10px;
+}
+
+.Item-content {
+  padding: 20px 10px;
+  flex-grow: 1;
 }

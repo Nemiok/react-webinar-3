@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import { createElement } from './utils.js';
 import './styles.css';
 
 /**
@@ -7,7 +7,7 @@ import './styles.css';
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App({ store }) {
 
   const list = store.getState().list;
 
@@ -24,9 +24,10 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
+                onClick={() => store.selectItem(item.code)}>
+                <div className='Item-code'>{String(item.code).slice(0, 6)}</div>
                 <div className='Item-title'>{item.title}</div>
+                <div className='Item-content'> {item.clicked !== 0 && `| Выделяли ${item.clicked} раз`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

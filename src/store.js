@@ -1,3 +1,5 @@
+import { uniqueIdGenerator } from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, { code: uniqueIdGenerator(), title: 'Новая запись', clicked: 0 }]
     })
   };
 
@@ -67,8 +69,13 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+
         if (item.code === code) {
-          item.selected = !item.selected;
+          item.selected = item.selected ? false : true;
+          item.clicked = item.clicked + 1;
+        }
+        else {
+          item.selected = false
         }
         return item;
       })
