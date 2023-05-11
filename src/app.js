@@ -27,7 +27,7 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{String(item.code).slice(0, 6)}</div>
                 <div className='Item-title'>{item.title}</div>
-                <div className='Item-content'> {item.clicked !== 0 && `| Выделяли ${item.clicked} раз`}</div>
+                <div className='Item-content'> {item.clicked !== 0 && `| Выделяли ${item.clicked} раз(а)`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

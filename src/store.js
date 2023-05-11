@@ -1,4 +1,4 @@
-import { uniqueIdGenerator } from "./utils";
+import { generateUniqueId } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -46,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: uniqueIdGenerator(), title: 'Новая запись', clicked: 0 }]
+      list: [...this.state.list, { code: generateUniqueId(), title: 'Новая запись', clicked: 0 }]
     })
   };
 
