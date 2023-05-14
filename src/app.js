@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement, pluralize } from './utils.js';
+import { pluralize } from './utils.js';
 import './styles.css';
 
 /**
