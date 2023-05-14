@@ -29,9 +29,27 @@ export function createElement(name, props = {}, ...children) {
 
 // Генератор уникальных id
 // Используется замыкание, которое гарантирует, что переменная closureCounter всегда будет уникальна
-let closureCounter = Math.floor(Math.random() * 100)
+let closureCounter = 1
 export function generateUniqueId() {
   const uniqueID = closureCounter
   closureCounter++
   return uniqueID
+}
+
+// Функция плюрализации слов.
+// Принимает в себя глагол, существительное в единственном числе и окончание множественного числа.
+// В зависимости от переданного числа функция возвращает либо фразу со множественным числом существительного, либо с единственным.
+export function pluralize(count, verb, noun, suffix = 'а') {
+  const countString = String(count)
+  const countLastDigit = Number(countString.at(-1))
+  const countLastTwoDigits = Number(countString.slice(-2))
+
+  const endsWithLessThanFiveandMoreThanOne = countLastDigit < 5 && countLastDigit > 1
+
+  if (countLastTwoDigits < 10 && endsWithLessThanFiveandMoreThanOne || countLastTwoDigits > 20 && endsWithLessThanFiveandMoreThanOne) {
+    return `${verb} ${count} ${noun}${suffix}`
+  }
+
+  return `${verb} ${count} ${noun}`
+
 }
