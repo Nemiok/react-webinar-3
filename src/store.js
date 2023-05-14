@@ -80,7 +80,6 @@ class Store {
         else {
           item.selected = false
         }
-        console.log('click')
         return item;
       })
     })
