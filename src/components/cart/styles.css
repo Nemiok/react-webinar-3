@@ -1,0 +1,26 @@
+.Cart__Wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 70px;
+  margin-bottom: 70px;
+}
+
+
+.Cart__Sum {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  line-height: 21px;
+  gap: 4px;
+  margin-left: auto;
+  margin-right: 120px;
+  font-weight: 700;
+  gap: 53px;
+}
+
+.Cart__Content_WhenEmpty {
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+  margin: 0 auto;
+}

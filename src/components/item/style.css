@@ -23,3 +23,29 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 12px;
+  width: 100%;
+  justify-content: flex-end;
+  font-size: 18px;
+  line-height: 21px;
+
+}
+
+.Item-price span {
+  word-break: break-all;
+}
+
+.Item-ProductCount {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  line-height: 21px;
+  gap: 4px;
+  padding-left: 62px;
+  margin-right: 14px;
+}

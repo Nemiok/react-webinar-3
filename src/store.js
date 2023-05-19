@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,6 +7,8 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+
+    this.state.cart = this.state.list.filter(item => item.productCountInCart > 0);
   }
 
   /**
@@ -46,7 +48,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }]
     })
   };
 
@@ -54,12 +56,25 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItemFromCart(code) {
+    const afterVanishedProductCountFromItemArray = this.state.list.map(item => {
+      if (item.code === code) {
+        return {
+          ...item,
+          productCountInCart: 0
+        }
+      }
+      return item
+    })
+
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      list: afterVanishedProductCountFromItemArray,
+      cart: afterVanishedProductCountFromItemArray.filter(item => item.code !== code && item.productCountInCart > 0)
     })
+
+
   };
 
   /**
@@ -79,10 +94,31 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     })
-  }
+  };
+
+  addItemToCart(code) {
+
+    const newCart = [...this.state.list]
+      .map(item => {
+        if (item.code === code) {
+          return {
+            ...item,
+            productCountInCart: ++item.productCountInCart
+          }
+        }
+        return item
+      })
+      .filter(item => item.productCountInCart > 0)
+
+    this.setState({
+      ...this.state,
+      cart: [...newCart]
+    })
+
+  };
 }
 
 export default Store;

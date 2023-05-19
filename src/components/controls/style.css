@@ -3,3 +3,7 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls button {
+  min-width: 80px;
+}
