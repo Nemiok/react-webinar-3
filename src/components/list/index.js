@@ -4,7 +4,7 @@ import Item from "../item";
 import './style.css';
 import STORE_OF_NAMES from "../../utils/store-of-names";
 
-function List({ list, onAddItemToCart, onDeleteItemFromCart, typeOfList/*  onSelectItem  */ }) {
+function List({ list, onAddItemToCart, onDeleteItemFromCart, typeOfList }) {
   let buttonName;
   let controlButtonHandler;
 
@@ -20,13 +20,13 @@ function List({ list, onAddItemToCart, onDeleteItemFromCart, typeOfList/*  onSel
   }
 
   return (
-    <div className='List'>{
+    <ul className='List'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
-          <Item typeOfList={typeOfList} buttonName={buttonName} item={item} controlButtonHandler={controlButtonHandler} /* onSelect={onSelectItem} */ />
-        </div>
+        <li key={item.code} className='List-item'>
+          <Item typeOfList={typeOfList} buttonName={buttonName} item={item} controlButtonHandler={controlButtonHandler} />
+        </li>
       )}
-    </div>
+    </ul>
   )
 }
 
@@ -36,7 +36,6 @@ List.propTypes = {
   })).isRequired,
   onDeleteItemFromCart: PropTypes.func,
   onAddItemToCart: PropTypes.func,
-  onSelectItem: PropTypes.func,
   typeOfList: PropTypes.string.isRequired
 };
 

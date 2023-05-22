@@ -1,8 +1,16 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
 }
+
+
+@media (max-width: 425px) {
+  .Controls {
+    row-gap: 1rem;
+    flex-direction: column;
+  }
+}
+
 
 .Controls button {
   min-width: 80px;

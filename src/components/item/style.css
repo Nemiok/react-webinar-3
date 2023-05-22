@@ -4,6 +4,13 @@
   transition: background-color 1s;
 }
 
+
+@media (max-width: 425px) {
+  .Item {
+    flex-direction: column;
+  }
+}
+
 .Item_selected {
   background: #75aaf1;
   color: #fff;
@@ -24,6 +31,12 @@
   padding: 20px 20px 20px 10px;
 }
 
+@media (max-width: 425px) {
+  .Item-actions {
+    justify-content: flex-start;
+  }
+}
+
 .Item-price {
   display: flex;
   align-items: center;
@@ -33,7 +46,13 @@
   justify-content: flex-end;
   font-size: 18px;
   line-height: 21px;
+}
 
+@media (max-width: 425px) {
+  .Item-price {
+    justify-content: flex-start;
+    padding-left: 10px;
+  }
 }
 
 .Item-price span {
@@ -48,4 +67,11 @@
   gap: 4px;
   padding-left: 62px;
   margin-right: 14px;
+}
+
+@media (max-width: 768px) {
+  .Item-ProductCount {
+    justify-content: flex-start;
+    padding-left: 10px;
+  }
 }

@@ -1,21 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
-import formatNumber from "../../utils/functions/formatMoney";
+import formatNumber from "../../utils/functions/format-money";
 import STORE_OF_NAMES from "../../utils/store-of-names";
 
 function Item(props) {
 
-  // Счётчик выделений
-  /*  const [count, setCount] = useState(0); */
-
   const callbacks = {
-    /*    onClick: () => {
-         props.onSelect(props.item.code);
-         if (!props.item.selected) {
-           setCount(count + 1);
-         }
-       }, */
     onClickControlButton: (e) => {
       e.stopPropagation();
       props.controlButtonHandler(props.item.code);
@@ -23,24 +14,28 @@ function Item(props) {
   }
 
   return (
-    <div className={'Item'/*  + (props.item.selected ? ' Item_selected' : '') */}
-      /* onClick={callbacks.onClick} */>
+    <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
+
       <div className='Item-title'>
-        {props.item.title}{/*  {count ? ` | Выделяли ${count} ${plural(count, { one: 'раз', few: 'раза', many: 'раз' })}` : '' */}
+        {props.item.title}
       </div>
+
       <div className="Item-price">
         <span>{formatNumber(props.item.price)}</span> <span>&#8381;</span>
       </div>
+
       {props.typeOfList === STORE_OF_NAMES.LIST_OF_CART_ITEMS &&
         <div className="Item-ProductCount">
           <span>{props.item.productCountInCart}</span><span> шт</span>
         </div>}
+
       <div className='Item-actions'>
         <button onClick={callbacks.onClickControlButton}>
           {props.buttonName}
         </button>
       </div>
+
     </div>
   );
 }
@@ -53,7 +48,6 @@ Item.propTypes = {
     count: PropTypes.number
   }).isRequired,
   controlButtonHandler: PropTypes.func.isRequired,
-  onSelect: PropTypes.func,
   typeOfList: PropTypes.string.isRequired,
   buttonName: PropTypes.string.isRequired
 };

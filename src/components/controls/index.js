@@ -12,7 +12,6 @@ function Controls({ controlButtonHandler, buttonName, children }) {
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
   buttonName: PropTypes.string.isRequired,
   controlButtonHandler: PropTypes.func.isRequired
 };

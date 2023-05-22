@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types";
 import './styles.css'
 
 function ModalWindow({ onCloseCart, children }) {
@@ -9,6 +10,11 @@ function ModalWindow({ onCloseCart, children }) {
       </div>
     </div>
   )
+}
+
+ModalWindow.propTypes = {
+  onCloseCart: PropTypes.func.isRequired,
+  children: PropTypes.node
 }
 
 export default ModalWindow

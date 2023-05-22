@@ -1,14 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import List from "./components/list";
-import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import ModalWindow from './components/modal-window';
 import Cart from './components/cart';
 import STORE_OF_NAMES from './utils/store-of-names';
-import './app.css'
-import { plural } from './utils';
-import formatNumber from './utils/functions/formatMoney';
+import CartCounter from './components/cart-counter';
 
 /**
  * Приложение
@@ -21,8 +18,8 @@ function App({ store }) {
 
   const initialListOfItems = store.getState().list;
   const cartItems = store.getState().cart;
-
-  const priceOfSelectedProducts = cartItems.reduce((acc, curr) => acc += curr.productCountInCart * curr.price, 0)
+  const totalSum = store.getState().totalSum;
+  const productCount = store.getState().totalProductInCartCount;
 
   const callbacks = {
     onAddItemToCart: useCallback((code) => {
@@ -36,24 +33,28 @@ function App({ store }) {
     onOpenCart: () => {
       if (isCardOpen) return
       setCardOpen(true)
+      const body = document.querySelector('body')
+      body.classList.add('overflow-y-hidden')
     },
 
     onCloseCart: () => {
       if (!isCardOpen) return
       setCardOpen(false)
+      const body = document.querySelector('body')
+      body.classList.remove('overflow-y-hidden')
     }
   }
 
   return (
-    <PageLayout>
-      <Head title='Магазин' />
-      <Controls buttonName='Перейти' controlButtonHandler={callbacks.onOpenCart} >
-        <div className='Cart__Description'>В корзине: <span>{cartItems.length > 0 ? `${cartItems.length} ${plural(cartItems.length, { one: 'товар', few: 'товара', many: 'товаров' })} / ${formatNumber(priceOfSelectedProducts)} ₽` : 'пусто'}</span></div>
-      </Controls>
-      <List list={initialListOfItems}
-        typeOfList={STORE_OF_NAMES.LIST_OF_AVAILABLE_ITEMS}
-        onAddItemToCart={callbacks.onAddItemToCart} />
+    <>
+      <PageLayout>
+        <Head title='Магазин' />
+        <CartCounter totalSum={totalSum} productCount={productCount} cartItems={cartItems} onOpenCart={callbacks.onOpenCart} />
+        <List list={initialListOfItems}
+          typeOfList={STORE_OF_NAMES.LIST_OF_AVAILABLE_ITEMS}
+          onAddItemToCart={callbacks.onAddItemToCart} />
 
+      </PageLayout>
       {isCardOpen &&
         <ModalWindow onCloseCart={callbacks.onCloseCart}>
           <Cart onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
@@ -62,7 +63,7 @@ function App({ store }) {
             onCloseCart={callbacks.onCloseCart}
             onAddItemToCart={callbacks.onAddItemToCart} />
         </ModalWindow>}
-    </PageLayout>
+    </>
   );
 }
 
