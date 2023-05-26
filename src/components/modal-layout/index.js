@@ -1,11 +1,13 @@
-import {memo, useEffect, useRef} from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import useStore from "../../store/use-store";
 
 function ModalLayout(props) {
 
   const cn = bem('ModalLayout');
+  const store = useStore()
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
@@ -27,9 +29,13 @@ function ModalLayout(props) {
     }
   }, []);
 
+  const callbacks = {
+    onClose: useCallback(() => store.actions.modals.close(), [store]),
+  }
+
   return (
-    <div className={cn()} ref={layout}>
-      <div className={cn('frame')} ref={frame}>
+    <div onClick={callbacks.onClose} className={cn()} ref={layout}>
+      <div onClick={(e) => e.stopPropagation()} className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
           <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
